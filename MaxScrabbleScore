@@ -1,0 +1,140 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class MaxScrabbleScore extends TextFileAccessor {
+    private Scanner scan;
+    private String fileName;
+
+    public Scanner getScan(){
+        return scan;
+    }
+
+    // throws a FileNotFoundException if can't open file
+    public void openFile(String fn)throws IOException {
+        fileName = fn;
+        scan = new Scanner(new FileReader(fileName));
+    }
+
+    public void processFile() {
+        int currentScore = 0;
+        String maxLine[] = {"a"};
+        int maxScore[] = {0};
+        int a = 0;
+        int LetterScore = 0;
+
+
+        while (scan.hasNextLine()) {
+            String data = scan.nextLine();
+            String currentLine = data.toLowerCase();
+            String currentPrint = data;
+            for (int i = 0; i < currentLine.length(); i++) {
+                if (Character.isLetter(currentLine.charAt(i))) {
+                    if (currentLine.charAt(i) == 'a') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'b') {
+                        LetterScore = 3;
+                    }
+                    else if (currentLine.charAt(i) == 'c') {
+                        LetterScore = 3;
+                    }
+                    else if (currentLine.charAt(i) == 'd') {
+                        LetterScore = 2;
+                    }
+                    else if (currentLine.charAt(i) == 'e') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'f') {
+                        LetterScore = 4;
+                    }
+                    else if (currentLine.charAt(i) == 'g') {
+                        LetterScore = 2;
+                    }
+                    else if (currentLine.charAt(i) == 'h') {
+                        LetterScore = 4;
+                    }
+                    else if (currentLine.charAt(i) == 'i') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'j') {
+                        LetterScore = 8;
+                    }
+                    else if (currentLine.charAt(i) == 'k') {
+                        LetterScore = 5;
+                    }
+                    else if (currentLine.charAt(i) == 'l') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'm') {
+                        LetterScore = 3;
+                    }
+                    else if (currentLine.charAt(i) == 'n') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'o') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'p') {
+                        LetterScore = 3;
+                    }
+                    else if (currentLine.charAt(i) == 'q') {
+                        LetterScore = 10;
+                    }
+                    else if (currentLine.charAt(i) == 'r') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 's') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 't') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'u') {
+                        LetterScore = 1;
+                    }
+                    else if (currentLine.charAt(i) == 'v') {
+                        LetterScore = 4;
+                    }
+                    else if (currentLine.charAt(i) == 'w') {
+                        LetterScore = 4;
+                    }
+                    else if (currentLine.charAt(i) == 'x') {
+                        LetterScore = 8;
+                    }
+                    else if (currentLine.charAt(i) == 'y') {
+                        LetterScore = 4;
+                    }
+                    else if (currentLine.charAt(i) == 'z') {
+                        LetterScore = 10;
+                    }
+                    else{
+                        LetterScore = 0;
+                    }
+                    if (i == 0){
+                        LetterScore = LetterScore*2;
+                    }
+                    else if (i%4 == 0){
+                        LetterScore = LetterScore*2;
+                    }
+                    else if (i%9 == 0){
+                        LetterScore = LetterScore*3;
+                    }
+                }
+                currentScore = currentScore + LetterScore;
+                LetterScore = 0;
+            }
+            if (currentScore > maxScore[0]){
+                maxScore[0] = currentScore;
+                maxLine[0] = currentPrint;
+            }
+            currentScore = 0;
+            currentLine = "";
+        }
+        System.out.println("Max Scrabble Score: " + maxScore[0] + " for this line: " + maxLine[0]);
+    }
+
+}
